@@ -1,0 +1,78 @@
+#!/bin/bash
+
+
+
+mus() {
+	titleinfo="$(ncmpcpp --now-playing '{%t}')"
+	artistinfo="$(ncmpcpp --now-playing '{{ Ý %a} Ý %b}' | head -c 31)"
+	songinfo="$titleinfo $artistinfo $albuminfo"
+	if [[ ! $songinfo ]]; then
+		songinfo="No Time For Love"
+	fi
+	echo "^s[right;#535f5c;Î ](1;spawn;~/.config/wmfs/new\ scripts/dzen_music.sh)"
+}
+
+datetime() {
+	dte="$(date)"
+	echo "^s[right;#808080;Õ `date +"%H:%M"`](1;status_surface;1850,18,180,14,#151515 ^s[left;#a3a3a3; $dte])"
+}
+
+# membar
+membar(){
+    memu="$(free -m | sed -n 's|^-.*:[ \t]*\([0-9]*\) .*|\1|gp')"
+    memt="$(free -m | sed -n 's|^M.*:[ \t]*\([0-9]*\) .*|\1|gp')"
+    echo "^s[right;#3b4821;Þ ](1;status_surface;1886,14,90,14,#151515 ^s[left;#586c31; $memu Mb/$memt Mb])"
+}
+
+cpu() {
+	cpu="$(eval $(awk '/^cpu /{print "previdle=" $5 "; prevtotal=" $2+$3+$4+$5 }' /proc/stat); sleep 0.4;
+	      eval $(awk '/^cpu /{print "idle=" $5 "; total=" $2+$3+$4+$5 }' /proc/stat);
+	      intervaltotal=$((total-${prevtotal:-0}));
+	      echo "$((100*( (intervaltotal) - ($idle-${previdle:-0}) ) / (intervaltotal) ))")"
+
+	      echo "^s[right;#3c5856;Ï ](1;status_surface;1755,14,40,14,#151515 ^s[left;#537a77; $cpu%])"
+}
+
+netup() {
+	up="$("$HOME/.config/wmfs/scripts/speedup.sh")"
+	echo "^s[right;#736935;Ñ ](1;status_surface;1765,14,50,14,#151515 ^s[left;#857423; $up\Ks])"
+}
+
+netdown() {
+	down="$("$HOME/.config/wmfs/scripts/speeddown.sh")"
+	echo "^s[right;#663d3d;Ð ](1;status_surface;1775,14,50,14,#151515 ^s[left;#7a3b3b; $down\Ks])"
+}
+
+vol() {
+	volume="$(amixer get PCM | tail -n1 | sed -r 's/.*\[(.*)%\].*/\1/')"
+	echo -ne "^s[right;#63406e;Ô ](1;status_surface;1790,14,50,14,#151515 ^s[left;#83638d; ${volume}%])"
+}
+
+print_torrent_status() {
+  torrent_status="$(transmission-remote -l | awk '/\ \ Up\ &\ Down\ \ /\
+      && ! /\ \ Unknown\ \ /\
+      {print substr(substr($0,index($0,$13)),0,40), "Ý "$5$6}')"
+  if [[ ! $torrent_status ]]; then
+    torrent_status="$( transmission-remote -l | awk '/\ \ Downloading\ \ /\
+        && ! /\ \ Unknown\ \ /\
+        {print substr(substr($0,index($0,$11)),0,40), "Ý "$5$6}')"
+  fi
+  if [[ ! $torrent_status ]]; then
+    torrent_status="Not downloading"
+  fi
+  echo  "^s[right;#8c5b3a;Ù ](1;status_surface;1780,14,500,14,#151515 ^s[left;#c17f51; $torrent_status])" 
+}
+
+TIMING=1
+
+statustext()
+{
+	wmfs -c status "statusbar $(mus) $(print_torrent_status) $(cpu) $(membar) $(netup) $(netdown) $(vol) $(datetime) "
+}
+
+while true;
+do
+    statustext
+    sleep $TIMING
+done
+
