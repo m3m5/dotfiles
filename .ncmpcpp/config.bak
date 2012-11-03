@@ -1,0 +1,133 @@
+######################
+### ncmpcpp config ###
+######################
+#### song format ####
+##
+## for song format you can use:
+##
+## %l - length
+## %f - filename
+## %D - directory
+## %a - artist
+## %t - title
+## %b - album
+## %y - year
+## %n - track number (01/12 -> 01)
+## %N - full track info (01/12 -> 01/12)
+## %g - genre
+## %c - composer
+## %p - performer
+## %d - disc
+## %C - comment
+## %R - begin right alignment
+##
+## you can also put them in { } and then it will be displayed
+## only if all requested values are available and/or define alternate
+## value with { }|{ } eg. {%a - %t}|{%f}
+##
+## Note: Format that is similar to "%a - %t" (i.e. without any additional
+## braces) is equal to "{%a - %t}", so if one of the tags is missing,
+## you'll get nothing.
+##
+## text can also have different color than the main window has,
+## eg. if you want length to be green, write $3%l$9
+##
+## available values:
+##
+## - 0 - default window color (discards all other colors)
+## - 1 - black
+## - 2 - red
+## - 3 - green
+## - 4 - yellow
+## - 5 - blue
+## - 6 - magenta
+## - 7 - cyan
+## - 8 - white
+## - 9 - end of current color
+##
+## Note: colors can be nested.
+##
+#########
+## Mpd ##
+#########
+mpd_host = "127.0.0.1"
+mpd_port = "6600"
+mpd_music_dir = "home/m3m5/music/"
+
+################
+## Visualizer ##
+################
+visualizer_fifo_path = "/tmp/mpd.fifo"
+visualizer_output_name = "my_fifo"
+visualizer_type = "spectrum"
+visualizer_look = "●▋"
+
+##############
+## Playlist ##
+##############
+song_columns_list_format = "(7f)[cyan]{l}(25)[white]{a} (40)[cyan]{t|f} (30)[white]{b}"
+song_list_format = "{%a - %t}{$4%l$9}{$7%A$9}{$8%t$9}{$2%b$9}"
+song_status_format = "{{%a{ \"%b\"{ (%y)}} - }{%t}}|{%f}"
+playlist_display_mode = "columns" (classic/columns)
+autocenter_mode = "yes"
+song_library_format = "{%n - }{%t}|{%f}"
+tag_editor_album_format = "{(%y) }%b"
+song_window_title_format = "{%a - }{%t}|{%f}"
+now_playing_prefix = "$b$1>>>>     "
+now_playing_suffix = "$/b$9"
+
+##########
+## Bars ##
+##########
+alternative_header_first_line_format = "$b$8$aqqu$/a$9 {$1%t$9}|{%f} $8$atqq$/a$9$/b"
+alternative_header_second_line_format = "{{$8$b%a$/b$9}{ - $8%b$9}{ ($8%y$9)}}|{%D}"
+user_interface = "alternative"
+statusbar_visibility = "no"
+progressbar_look = "█▋░"
+titles_visibility = "yes"
+
+#############
+## Browser ##
+#############
+browser_display_mode = "columns" (classic/columns)
+browser_playlist_prefix = "[P]$9"
+
+############
+## Colors ##
+############
+colors_enabled = "yes"
+active_column_color = "black"
+active_windows_border = "blue"
+alternative_ui_separator_color = "black"
+color1 = "black"
+color2 = "red"
+empty_tag_marker = "<empty>"
+empty_tag_color = "blue"
+header_window_color = "black"
+main_window_color = "black"
+main_window_highlight_color = "cyan"
+progressbar_color = "black"
+progressbar_elapsed_color = "black"
+state_line_color = "black"
+state_flags_color = "black"
+statusbar_color = "black"
+visualizer_color = "cyan"
+volume_color = "black"
+
+###########
+## Other ##
+###########
+search_engine_display_mode = "columns" (classic/columns)
+discard_colors_if_item_is_selected = "no"
+incremental_seeking = "yes"
+header_visibility = "no"
+jump_to_now_playing_song_at_start = "yes"
+clock_display_seconds = "no"
+display_volume_level = "yes"
+display_remaining_time = "no"
+ignore_leading_the = "no"
+media_library_display_date = "yes"
+media_library_display_empty_tag = "yes"
+titles_visibility = "no"
+enable_window_title = "yes"
+playlist_separate_albums = "no"
