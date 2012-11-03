@@ -1,0 +1,37 @@
+! Xresources file
+
+URxvt.transparent: false
+! URxvt.shading: 0 to 99 darkens, 101 to 200 lightens
+URxvt.shading:40
+
+URxvt.iconFile: /home/m3m5/.icons/Betelgeuse/22x22/apps/utilities-terminal.png
+
+URxvt.geometry: 84x23
+
+URxvt*loginShell:true
+
+URxvt*termName:screen-256color
+
+URxvt.scrollBar: off
+
+URxvt.perl-ext-common:  default,tabbed,matcher
+!-1 = background color -2 = foreground color
+URxvt.tabbed.tabbar-fg: 7
+URxvt.tabbed.tabbar-bg: -1
+URxvt.tabbed.tab-fg:    6
+URxvt.tabbed.tab-bg:    -1
+
+URxvt.urlLauncher:      /usr/bin/firefox
+URxvt.matcher.button:   1
+
+! xpdf -----------------------------------------------------------------------
+
+xpdf*enableFreetype:    yes
+xpdf*antialias:         yes
+xpdf*foreground:        white
+xpdf*background:        black
+xpdf*urlCommand:        /usr/bin/firefox %s
+!------------------------------------------------------------
+
+xterm*background: #151515
+xterm*foreground: #757575
